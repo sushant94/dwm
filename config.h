@@ -2,7 +2,7 @@
 
 /* appearance */
 static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
-static const char normbordercolor[] = "#444444";
+static const char normbordercolor[] = "fg";
 static const char normbgcolor[]     = "#222222";
 static const char normfgcolor[]     = "#bbbbbb";
 static const char selbordercolor[]  = "#005577";
@@ -12,14 +12,18 @@ static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
+static const gappx                  = 20;
 
 /* tagging */
-static const char *tags[] = { "MAIN", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "main", "web", "terminal", "#IRC",};
 
 static const Rule rules[] = {
 	/* class      instance    title       tags mask     isfloating   monitor */
 	{ "Gimp",     NULL,       NULL,       0,            True,        -1 },
 	{ "Firefox",  NULL,       NULL,       1 << 8,       False,       -1 },
+	{ "Google-chrome",  NULL,       "Chrome",       1 << 1,       False,       -1 },
+	{ "Xchat",  NULL,       "IRC",       1 << 3,       False,       -1 },
+	{ "Gnome-terminal",  NULL,       "Terminal",       1 << 2,       False,       -1 },
 };
 
 /* layout(s) */
@@ -27,11 +31,14 @@ static const float mfact      = 0.55; /* factor of master area size [0.05..0.95]
 static const int nmaster      = 1;    /* number of clients in master area */
 static const Bool resizehints = True; /* True means respect size hints in tiled resizals */
 
+#include "fibonacci.c"
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ "[M]",      monocle },
+ 	{ "[@]",      spiral },
+ 	{ "[\\]",      dwindle },
 };
 
 /* key definitions */
@@ -66,6 +73,7 @@ static Key keys[] = {
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
 	{ MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+    { MODKEY,                       XK_s,      setlayout,      {.v = &layouts[3]} },
 	{ MODKEY,                       XK_space,  setlayout,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
@@ -85,6 +93,7 @@ static Key keys[] = {
 	TAGKEYS(                        XK_9,                      8)
 	{ MODKEY|ShiftMask,             XK_q,      quit,           {0} },
 };
+
 
 /* button definitions */
 /* click can be ClkLtSymbol, ClkStatusText, ClkWinTitle, ClkClientWin, or ClkRootWin */
