@@ -1,18 +1,23 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static const char font[]            = "-*-terminus-medium-r-*-*-16-*-*-*-*-*-*-*";
-static const char normbordercolor[] = "#000000";
-static const char normbgcolor[]     = "#2D2929";
-static const char normfgcolor[]     = "#FFFFFF";
-static const char selbordercolor[]  = "#000000";
-static const char selbgcolor[]      = "#2D2929";
-static const char selfgcolor[]      = "#00D10F";
+static const char font[]            = "-*-terminusmod-*-*-normal-*-*-*-*-*-*-*-*-*";
+
+// Definition for colors.
+#define NUMCOLORS         4             // need at least 3
+static const char colors[NUMCOLORS][ColLast][8] = {
+   // border   foreground  background
+   { "#cccccc", "#000000", "#cccccc" },  // 0 = normal
+   { "#0066ff", "#ffffff", "#0066ff" },  // 1 = selected
+   { "#0066ff", "#0066ff", "#ffffff" },  // 2 = urgent/warning
+   { "#ff0000", "#ffffff", "#ff0000" },  // 3 = error
+};
+
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
-static const gappx                  = 20;
+// static const gappx                  = 0;
 
 /* tagging */
 static const char *tags[] = { "main", "web", "terminal", "#IRC",};
@@ -53,8 +58,9 @@ static const Layout layouts[] = {
 #define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* commands */
-static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf", selfgcolor, NULL };
-static const char *termcmd[]  = { "uxterm", NULL };
+
+static const char *dmenucmd[] = { "dmenu_run", "-fn", font, "-nb", colors[0][ColBG], "-nf", colors[0][ColFG],"-sb", colors[1][ColBG], "-sf", colors[1][ColFG], NULL };
+static const char *termcmd[]  = { "gnome-terminal", NULL };
 
 static Key keys[] = {
 	/* modifier                     key        function        argument */
