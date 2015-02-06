@@ -7,17 +7,22 @@ static const char font[]            = "-*-terminusmod-*-*-normal-*-*-*-*-*-*-*-*
 #define NUMCOLORS         4             // need at least 3
 static const char colors[NUMCOLORS][ColLast][8] = {
    // border   foreground  background
-   { "#cccccc", "#000000", "#cccccc" },  // 0 = normal
-   { "#0066ff", "#ffffff", "#0066ff" },  // 1 = selected
-   { "#0066ff", "#0066ff", "#ffffff" },  // 2 = urgent/warning
-   { "#ff0000", "#ffffff", "#ff0000" },  // 3 = error
+   { "#000000", "#3c8d7f", "#0d0d0d" },  // 0 = normal
+   { "#86b460", "#cebd4e", "#0d0d0d" },  // 1 = selected
+   { "#000000", "#d45b5b", "#0d0d0d" },  // 2 = urgent/warning
+   { "#7d968d", "#86b460", "#0d0d0d" },  // 3 = error
+   { "#cebd4e", "#cebd4e", "#0d0d0d"},   // Status Bar
 };
-
+static const char normbordercolor[] = "#000000";
+static const char normbgcolor[]     = "#2D2929";
+static const char normfgcolor[]     = "#FFFFFF";
+static const char selbordercolor[]  = "#000000";
+static const char selbgcolor[]      = "#2D2929";
+static const char selfgcolor[]      = "#00D10F";
 static const unsigned int borderpx  = 1;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
-// static const gappx                  = 0;
 
 /* tagging */
 static const char *tags[] = { "main", "web", "terminal", "#IRC",};
